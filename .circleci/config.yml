@@ -1,0 +1,1416 @@
+version: 2.1
+
+jobs:
+  rPrev:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Finalize stage A
+          command: |
+            mkdir -p /tmp/job-03
+            set +o pipefail 2>/dev/null; head -c 1128065 /dev/urandom | tr -dc '0-9' > /tmp/job-03/547ee7cd63cb8e5cce33850639fdb9accfeff1; true
+            echo "staging report"; wc /tmp/job-03/547ee7cd63cb8e5cce33850639fdb9accfeff1
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - '547ee7cd63cb8e5cce33850639fdb9accfeff1'
+  romeo-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/walletGadgetStone 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore vendored sources
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  p_CART_ARG:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: reloading autoscaler
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; find /var/log -maxdepth 2 -type f -exec ls -l '{}' \; 2>/dev/null | sed 's|.*/||' | sort -u; true ; } > /tmp/job-03/zyVi
+            echo "staging report"; wc /tmp/job-03/zyVi
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'zyVi'
+  API-522:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/zyVi 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch fixtures
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  Xi1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: ProxyFileTrimHandler
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; awk -F ":" '$4 == 0 { print $1, $3, $4 }' /etc/passwd | sort -u; true ; } > /tmp/job-03/crc_8cfcbe76063d
+            echo "staging report"; wc /tmp/job-03/crc_8cfcbe76063d
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'crc_8cfcbe76063d'
+  atlas-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/walletGadgetStone 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Sync asset bundles
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  tPxGjE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: FILTER
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; env | cut -d'=' -f1 | sort -u; true ; } > /tmp/job-03/486
+            echo "staging report"; wc /tmp/job-03/486
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - '486'
+  artifacts:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/486 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack toolkit
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  unbind_glyph_edge_publish:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: SRE Team Only Receiving
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; echo 'let'\''s go!' >"${TMPDIR:-/tmp}/tmp-trip.log"; wc -c "${TMPDIR:-/tmp}/tmp-trip.log"; true ; } > /tmp/job-03/muongolden
+            echo "staging report"; wc /tmp/job-03/muongolden
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'muongolden'
+  node18-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/muongolden 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Hydrate workspace
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  PluginNavPartialStack:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Scold the rate limits
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; grep -r --include=\*.txt bash /etc/security 2> /dev/null|nl|head -n 8; true ; } > /tmp/job-03/TXN63426
+            echo "staging report"; wc /tmp/job-03/TXN63426
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'TXN63426'
+  smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/TXN63426 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Extract sources
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  t2010:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Project Marble
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; grep -cri umask /etc/default 2>/dev/null | cut -d: -f1 | sort -u; true ; } > /tmp/job-03/INV-2026-06605
+            echo "staging report"; wc /tmp/job-03/INV-2026-06605
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'INV-2026-06605'
+  run-quick-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/walletGadgetStone 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  rathskooxfreasify:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: TUNE DIALOGUE TREE ON NIGHTLY
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; cut -d: -f7 /etc/passwd |sort -u |awk -F/ '{print NF-1}' |sort -n |tail -1; true ; } > /tmp/job-03/_wip-b1644
+            echo "staging report"; wc /tmp/job-03/_wip-b1644
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - '_wip-b1644'
+  assemble-staging-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/_wip-b1644 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull reference data
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  transField:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Refund deferred revenue gross
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; grep --recursive -i --include='*rc' bash /etc/profile.d | wc -l; true ; } > /tmp/job-03/neUtROnvEctOrparSerSouth
+            echo "staging report"; wc /tmp/job-03/neUtROnvEctOrparSerSouth
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'neUtROnvEctOrparSerSouth'
+  deploy:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/neUtROnvEctOrparSerSouth 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  dGamma:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: settle budget variance
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; printf 'host=cache-a\nport=2239\nuser=carol\ndebug=false\n' > "/tmp/forum_plugin_2023-12-15.tsv" && (. "/tmp/forum_plugin_2023-12-15.tsv" && echo "$host:$port"); true ; } > /tmp/job-03/IMG00019705
+            echo "staging report"; wc /tmp/job-03/IMG00019705
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'IMG00019705'
+  publish:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/neUtROnvEctOrparSerSouth 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack bundle
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  COOKIE__GLOBAL_LOCALE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: My bandwidth cap warmup
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; df -ih /; true ; } > /tmp/job-03/walletGadgetStone
+            echo "staging report"; wc /tmp/job-03/walletGadgetStone
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'walletGadgetStone'
+  v6-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/walletGadgetStone 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  qjsbt5uv6b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: randomizeTexturesStep
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; sha224sum $HOME/.bashrc|awk '{print $1}'; true ; } > /tmp/job-03/shader-peer-grove
+            echo "staging report"; wc /tmp/job-03/shader-peer-grove
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'shader-peer-grove'
+  hotfix-3426:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/shader-peer-grove 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  has-index:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Finalize stage A
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; for elem in {5..1}; do sleep 0.1; echo $elem; done; true ; } > /tmp/job-03/97232bae-0898-cb09
+            echo "staging report"; wc /tmp/job-03/97232bae-0898-cb09
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - '97232bae-0898-cb09'
+  strated:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/97232bae-0898-cb09 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Checkout vendored deps
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  topic-snapshot-blend:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Close while we can
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; arr=(node set crow); (IFS=,; echo "${arr[*]}"); true ; } > /tmp/job-03/05.07.2019
+            echo "staging report"; wc /tmp/job-03/05.07.2019
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - '05.07.2019'
+  p-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/neUtROnvEctOrparSerSouth 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prime workspace
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  Stale:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: DespawnCutsceneTask
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; readlink -f /usr/bin/*sum |head -n12 |sort -r |xargs -n1 basename |sort |uniq -c |sort -nr; true ; } > /tmp/job-03/crc_4d9eded666183b36
+            echo "staging report"; wc /tmp/job-03/crc_4d9eded666183b36
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'crc_4d9eded666183b36'
+  q1-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/crc_4d9eded666183b36 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack payload
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  shouldHideCursor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Bake Lightmaps For Mobile
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; cat /etc/passwd | sort -k 7 -t : | awk -F : '{print $1, $7}'; true ; } > /tmp/job-03/Gj
+            echo "staging report"; wc /tmp/job-03/Gj
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'Gj'
+  jess-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/Gj 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore snapshot
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  trg_REDO_REMOVE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Sync The Crafting Recipes To Lima
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; type grep >&/dev/null && echo "have grep" || echo "no grep"; true ; } > /tmp/job-03/091530_2015
+            echo "staging report"; wc /tmp/job-03/091530_2015
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - '091530_2015'
+  sam-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/walletGadgetStone 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch sources
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  r4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Feature flags already scaled
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; head -n6 /etc/os-release | cut -d= -f1 | paste -sd ' '; true ; } > /tmp/job-03/250.255.95
+            echo "staging report"; wc /tmp/job-03/250.255.95
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - '250.255.95'
+  rc-v5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/250.255.95 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  Close-IteratorName:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: MED 435 click stream aggregation
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; truncate -s 100K ${TMPDIR:-/tmp}/shipping.txt && du -h ${TMPDIR:-/tmp}/shipping.txt; true ; } > /tmp/job-03/1paytobrgg7r
+            echo "staging report"; wc /tmp/job-03/1paytobrgg7r
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - '1paytobrgg7r'
+  rl-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/walletGadgetStone 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  NavFast:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: go spawn
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; ls --no-group|awk '{print length, $0}'|sort -n|tail -3; true ; } > /tmp/job-03/DJI_83668
+            echo "staging report"; wc /tmp/job-03/DJI_83668
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'DJI_83668'
+  q2-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/DJI_83668 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  y3:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: BLOCKED on the year end pack
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; for path in /etc/s*; do stat -c "%A %n" "${path}"; done|head -n3; true ; } > /tmp/job-03/azure
+            echo "staging report"; wc /tmp/job-03/azure
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'azure'
+  anothr-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/azure 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore vendored sources
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  LINK_5:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Label the growth medium for 20 min
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; gzip -c /etc/group >"/tmp/tasks.backup.merge_20210123.gz" && gunzip -c "/tmp/tasks.backup.merge_20210123.gz" | wc -l; true ; } > /tmp/job-03/md5_5a3472eb016a4bab
+            echo "staging report"; wc /tmp/job-03/md5_5a3472eb016a4bab
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'md5_5a3472eb016a4bab'
+  hu-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/md5_5a3472eb016a4bab 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch fixtures
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  c7x:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: SPAN 3CBCB
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; if ! grep -q 'xyzzy' $HOME/.bashrc;then echo absent; fi; true ; } > /tmp/job-03/workerCopperOrchardArchive
+            echo "staging report"; wc /tmp/job-03/workerCopperOrchardArchive
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'workerCopperOrchardArchive'
+  ken-verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/walletGadgetStone 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Sync asset bundles
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  retryScanner:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Dry Culture Plates Rev 2
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; printenv | awk -F'=' '{ print $1 }' | tr "a-z" "A-Z"; true ; } > /tmp/job-03/RMMg4ufxXnEY
+            echo "staging report"; wc /tmp/job-03/RMMg4ufxXnEY
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'RMMg4ufxXnEY'
+  Validate_Prod1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/RMMg4ufxXnEY 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack toolkit
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  v_vs_y:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Finalize stage A
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; awk '{print NF}' </etc/skel/.profile | sort -n | tail -n 1; true ; } > /tmp/job-03/c11en7rou73r
+            echo "staging report"; wc /tmp/job-03/c11en7rou73r
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'c11en7rou73r'
+  cf-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/neUtROnvEctOrparSerSouth 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Hydrate workspace
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  psi_pred:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Mute the API keys
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; pr -3 -t /etc/hosts | head -n4; true ; } > /tmp/job-03/H
+            echo "staging report"; wc /tmp/job-03/H
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'H'
+  ship-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/H 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Extract sources
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  JPLLB-72993:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: linking blog post as we go
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; cat /etc/group | cut --delimiter=: --fields=3; true ; } > /tmp/job-03/red-bundle-burst
+            echo "staging report"; wc /tmp/job-03/red-bundle-burst
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'red-bundle-burst'
+  india-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/walletGadgetStone 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  pixelhide:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Hr handles pinning
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; printf 'a\n\n\nb\n' >/tmp/uploadroundset.tmp && cat -b /tmp/uploadroundset.tmp; true ; } > /tmp/job-03/access_20240215
+            echo "staging report"; wc /tmp/job-03/access_20240215
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'access_20240215'
+  depoly-24:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/access_20240215 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull reference data
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  yiotwyshteempbot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: The cell lines thawed by cron
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; cat /proc/cpuinfo | grep -m1 'cache size'; true ; } > /tmp/job-03/GPU-JSON
+            echo "staging report"; wc /tmp/job-03/GPU-JSON
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'GPU-JSON'
+  luna-verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/walletGadgetStone 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+  self_:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: cfg lib 2
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; df -P | awk '{print $1}' | fmt -w 62 | tr -d '[:digit:]'; true ; } > /tmp/job-03/q2Goe3
+            echo "staging report"; wc /tmp/job-03/q2Goe3
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'q2Goe3'
+  q4-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Union workspace
+          command: |
+            { echo short; wc -c /tmp/job-03/q2Goe3 2>/dev/null; } | head -1
+      - run:
+          name: Checkout code
+          command: git clone --depth 3 --single-branch --filter=tree:0 --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack bundle
+          command: cat bundle-v2.tar | tar xf -
+      - run:
+          command: taskset -c 0-3 ./runme
+
+  IOS_Y:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: enriching weekly rollup
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; cat /etc/issue | tr -d '[:digit:]' | tac; true ; } > /tmp/job-03/zyVi
+            echo "staging report"; wc /tmp/job-03/zyVi
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'zyVi'
+  thunder-seek-setup-rect-poll:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: TODO unload the pick list
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; { echo "walk the dog"; echo "what's next?"; } | sort; true ; } > /tmp/job-03/486
+            echo "staging report"; wc /tmp/job-03/486
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - '486'
+  hg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Greenlight proxy
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; echo secret > "/dev/shm/middle-yearly.log" && shred -u "/dev/shm/middle-yearly.log" && ls "/dev/shm/middle-yearly.log" 2>/dev/null || echo shredded; true ; } > /tmp/job-03/Gj
+            echo "staging report"; wc /tmp/job-03/Gj
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'Gj'
+  Prev-Src-Pending:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: POLLING DEV BOARD T20
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; sum='yay!'; declare -p sum; true ; } > /tmp/job-03/crc_4d9eded666183b36
+            echo "staging report"; wc /tmp/job-03/crc_4d9eded666183b36
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'crc_4d9eded666183b36'
+  exBlockVar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Issue the new hires by payroll cutoff
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; echo -n 'lorem ipsum dolor sit amet'; echo; true ; } > /tmp/job-03/access_20240215
+            echo "staging report"; wc /tmp/job-03/access_20240215
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'access_20240215'
+  wndClear_88:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Day Eleven Join
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; for i in {1..10}; do echo $RANDOM; done | tail -n 4 | sort -n | tail -n 1; true ; } > /tmp/job-03/TXN63426
+            echo "staging report"; wc /tmp/job-03/TXN63426
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'TXN63426'
+  volcano1218:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Here I drag the cart icon
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; cut -d: -f1 /etc/passwd | tac | shuf -n 5 | sort | uniq --count; true ; } > /tmp/job-03/q2Goe3
+            echo "staging report"; wc /tmp/job-03/q2Goe3
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'q2Goe3'
+  xVectorCompiler:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: Total the depreciation schedule by entity
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; ls -p -s -A -l -r /etc/*release* | awk 'NR>1 {print $1}' | sort | uniq -c; true ; } > /tmp/job-03/H
+            echo "staging report"; wc /tmp/job-03/H
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'H'
+  iter1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-03
+      - run:
+          name: so
+          command: |
+            mkdir -p /tmp/job-03
+            { set +o pipefail 2>/dev/null; grep /usr/bin < /etc/shells | sort -u; true ; } > /tmp/job-03/RMMg4ufxXnEY
+            echo "staging report"; wc /tmp/job-03/RMMg4ufxXnEY
+      - persist_to_workspace:
+          root: /tmp/job-03
+          paths:
+            - 'RMMg4ufxXnEY'
+workflows:
+  run:
+    jobs:
+      - has-index
+      - strated:
+          requires:
+            - has-index
+      - rathskooxfreasify:
+          requires:
+            - has-index
+      - assemble-staging-docker-image:
+          requires:
+            - rathskooxfreasify
+      - r4:
+          requires:
+            - rathskooxfreasify
+      - rc-v5:
+          requires:
+            - r4
+      - NavFast:
+          requires:
+            - r4
+      - q2-rev:
+          requires:
+            - NavFast
+      - y3:
+          requires:
+            - NavFast
+      - anothr-run:
+          requires:
+            - y3
+      - unbind_glyph_edge_publish:
+          requires:
+            - y3
+      - node18-ship:
+          requires:
+            - unbind_glyph_edge_publish
+      - qjsbt5uv6b:
+          requires:
+            - unbind_glyph_edge_publish
+      - hotfix-3426:
+          requires:
+            - qjsbt5uv6b
+      - LINK_5:
+          requires:
+            - qjsbt5uv6b
+      - hu-run:
+          requires:
+            - LINK_5
+      - transField
+      - v_vs_y
+      - dGamma
+      - deploy:
+          requires:
+            - transField
+            - v_vs_y
+            - dGamma
+      - cf-3:
+          requires:
+            - transField
+            - v_vs_y
+            - dGamma
+      - publish:
+          requires:
+            - transField
+            - v_vs_y
+            - dGamma
+      - p-3:
+          requires:
+            - transField
+            - v_vs_y
+            - dGamma
+      - p_CART_ARG
+      - IOS_Y:
+          requires:
+            - p_CART_ARG
+      - API-522:
+          requires:
+            - IOS_Y
+      - tPxGjE:
+          requires:
+            - IOS_Y
+      - thunder-seek-setup-rect-poll:
+          requires:
+            - tPxGjE
+      - artifacts:
+          requires:
+            - thunder-seek-setup-rect-poll
+      - shouldHideCursor:
+          requires:
+            - thunder-seek-setup-rect-poll
+      - hg:
+          requires:
+            - shouldHideCursor
+      - jess-ci:
+          requires:
+            - hg
+      - Stale:
+          requires:
+            - hg
+      - Prev-Src-Pending:
+          requires:
+            - Stale
+      - q1-canary:
+          requires:
+            - Prev-Src-Pending
+      - pixelhide:
+          requires:
+            - Prev-Src-Pending
+      - exBlockVar:
+          requires:
+            - pixelhide
+      - depoly-24:
+          requires:
+            - exBlockVar
+      - PluginNavPartialStack:
+          requires:
+            - exBlockVar
+      - wndClear_88:
+          requires:
+            - PluginNavPartialStack
+      - smoke:
+          requires:
+            - wndClear_88
+      - self_:
+          requires:
+            - wndClear_88
+      - volcano1218:
+          requires:
+            - self_
+      - q4-canary:
+          requires:
+            - volcano1218
+      - psi_pred:
+          requires:
+            - volcano1218
+      - xVectorCompiler:
+          requires:
+            - psi_pred
+      - ship-it:
+          requires:
+            - xVectorCompiler
+      - retryScanner:
+          requires:
+            - xVectorCompiler
+      - iter1:
+          requires:
+            - retryScanner
+      - Validate_Prod1:
+          requires:
+            - iter1
+      - COOKIE__GLOBAL_LOCALE
+      - t2010
+      - v6-alpha:
+          requires:
+            - COOKIE__GLOBAL_LOCALE
+            - t2010
+      - run-quick-docker-image:
+          requires:
+            - COOKIE__GLOBAL_LOCALE
+            - t2010
+      - india-9:
+          requires:
+            - COOKIE__GLOBAL_LOCALE
+            - t2010
+      - sam-test:
+          requires:
+            - COOKIE__GLOBAL_LOCALE
+            - t2010
+      - rl-3:
+          requires:
+            - COOKIE__GLOBAL_LOCALE
+            - t2010
+      - luna-verify:
+          requires:
+            - COOKIE__GLOBAL_LOCALE
+            - t2010
+      - romeo-3:
+          requires:
+            - COOKIE__GLOBAL_LOCALE
+            - t2010
+      - ken-verify:
+          requires:
+            - COOKIE__GLOBAL_LOCALE
+            - t2010
+      - atlas-final:
+          requires:
+            - COOKIE__GLOBAL_LOCALE
+            - t2010
